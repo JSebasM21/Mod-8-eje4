@@ -9,7 +9,9 @@
 
 body {
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -20,68 +22,76 @@ body {
     color: #333;
 }
 
-/* Partículas de fondo */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 .particles {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: 0;
     overflow: hidden;
+    pointer-events: none;
 }
 
 .particle {
     position: absolute;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    animation: float 15s infinite linear;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
-@keyframes float {
+@keyframes particleFloat {
     0% {
-        transform: translateY(0) translateX(0) rotate(0deg);
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+        opacity: 0;
     }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
     100% {
-        transform: translateY(-1000px) translateX(500px) rotate(720deg);
+        transform: translateY(-100px) translateX(100px) rotate(720deg);
+        opacity: 0;
     }
 }
 
-/* =====================================
-   CONTENEDOR PRINCIPAL
-   ===================================== */
 .container {
     width: 100%;
     max-width: 550px;
     margin: 0 auto;
-    animation: fadeInUp 0.8s ease-out;
+    animation: fadeInUp 1s ease-out;
+    position: relative;
+    z-index: 1;
 }
 
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(50px) scale(0.95);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 }
 
-/* =====================================
-   WRAPPER DEL FORMULARIO
-   ===================================== */
 .form-wrapper {
-    background: rgba(255, 255, 255, 0.98);
-    border-radius: 24px;
-    box-shadow: 
-        0 25px 50px -12px rgba(0, 0, 0, 0.25),
-        0 0 0 1px rgba(255, 255, 255, 0.1) inset,
-        0 10px 40px rgba(106, 17, 203, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 30px;
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.4);
     overflow: hidden;
     position: relative;
+    transition: transform 0.3s ease;
+}
+
+.form-wrapper:hover {
+    transform: translateY(-5px);
 }
 
 .form-wrapper::before {
@@ -90,24 +100,17 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, #6a11cb, #2575fc, #00d2ff);
-    background-size: 200% 100%;
-    animation: gradientMove 3s ease infinite;
+    height: 6px;
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #667eea);
+    background-size: 300% 100%;
+    animation: borderGlow 3s linear infinite;
 }
 
-@keyframes gradientMove {
-    0%, 100% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
+@keyframes borderGlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
 }
 
-/* =====================================
-   ENCABEZADO
-   ===================================== */
 .form-header {
     padding: 2.5rem 2.5rem 1.5rem;
     text-align: center;
@@ -115,38 +118,34 @@ body {
 }
 
 .header-icon {
-    width: 70px;
-    height: 70px;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1.5rem;
-    box-shadow: 0 10px 20px rgba(106, 17, 203, 0.2);
-    animation: pulse 2s infinite;
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+    animation: iconBounce 3s ease-in-out infinite;
 }
 
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
+@keyframes iconBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
 .header-icon i {
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: white;
 }
 
 h1 {
     color: #2d3436;
     margin-bottom: 0.5rem;
-    font-size: 2.2rem;
+    font-size: 2.3rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -155,33 +154,33 @@ h1 {
 .subtitle {
     color: #636e72;
     font-size: 1rem;
-    font-weight: 400;
     opacity: 0.8;
     margin-bottom: 1.5rem;
 }
 
-/* =====================================
-   BARRA DE PROGRESO
-   ===================================== */
 .progress-bar {
-    height: 6px;
-    background: #f0f0f0;
-    border-radius: 3px;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 10px;
     overflow: hidden;
     margin-top: 1.5rem;
 }
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #00d2ff, #2575fc);
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+    background-size: 200% 100%;
     width: 0%;
-    border-radius: 3px;
-    transition: width 0.5s ease;
+    border-radius: 10px;
+    transition: width 0.6s ease;
+    animation: progressShine 2s linear infinite;
 }
 
-/* =====================================
-   GRUPOS DE FORMULARIO
-   ===================================== */
+@keyframes progressShine {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
 form {
     padding: 0 2.5rem 2.5rem;
 }
@@ -193,7 +192,7 @@ form {
 }
 
 .form-group:focus-within {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
 }
 
 .label-container {
@@ -213,8 +212,8 @@ label {
 }
 
 label i {
-    color: #6a11cb;
-    width: 16px;
+    color: #667eea;
+    width: 18px;
     text-align: center;
 }
 
@@ -224,9 +223,6 @@ label i {
     font-weight: 500;
 }
 
-/* =====================================
-   INPUTS
-   ===================================== */
 .input-wrapper {
     position: relative;
     display: flex;
@@ -235,55 +231,60 @@ label i {
 
 .input-wrapper input {
     width: 100%;
-    padding: 1rem 1.2rem 1rem 3rem;
+    padding: 1.1rem 1.3rem 1.1rem 3.2rem;
     background: #f8f9fa;
     border: 2px solid #dfe6e9;
-    border-radius: 12px;
+    border-radius: 15px;
     font-size: 1rem;
     font-family: 'Poppins', sans-serif;
     color: #2d3436;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .input-wrapper input:focus {
     outline: none;
-    border-color: #6a11cb;
+    border-color: #667eea;
     background: white;
-    box-shadow: 
-        0 0 0 4px rgba(106, 17, 203, 0.1),
-        0 8px 24px rgba(106, 17, 203, 0.15);
+    box-shadow: 0 0 0 5px rgba(102, 126, 234, 0.15);
+    transform: translateY(-2px);
 }
 
 .input-wrapper input.valid {
     border-color: #00b894;
-    background: rgba(0, 184, 148, 0.02);
-    box-shadow: 0 4px 15px rgba(0, 184, 148, 0.1);
+    background: rgba(0, 184, 148, 0.03);
+    animation: validPulse 0.6s ease;
+}
+
+@keyframes validPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
 }
 
 .input-wrapper input.invalid {
     border-color: #ff7675;
-    background: rgba(255, 118, 117, 0.02);
-    animation: shake 0.5s ease;
+    background: rgba(255, 118, 117, 0.03);
+    animation: shake 0.6s ease;
 }
 
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-    20%, 40%, 60%, 80% { transform: translateX(5px); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+    20%, 40%, 60%, 80% { transform: translateX(8px); }
 }
 
 .input-icon {
     position: absolute;
-    left: 1rem;
+    left: 1.1rem;
     color: #636e72;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     pointer-events: none;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .input-wrapper:focus-within .input-icon {
-    color: #6a11cb;
+    color: #667eea;
+    transform: scale(1.2);
 }
 
 .toggle-password {
@@ -291,31 +292,27 @@ label i {
     border: none;
     color: #636e72;
     cursor: pointer;
-    font-size: 1rem;
-    padding: 0.5rem;
-    transition: color 0.3s ease;
+    font-size: 1.1rem;
+    padding: 0.6rem;
+    transition: all 0.3s ease;
+    border-radius: 8px;
 }
 
 .toggle-password:hover {
-    color: #6a11cb;
+    color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
 }
 
-/* =====================================
-   MENSAJES DE ERROR/INFO
-   ===================================== */
 .error-message {
     position: absolute;
     left: 0;
-    bottom: -1.5rem;
+    bottom: -1.6rem;
     color: #ff7675;
     font-size: 0.85rem;
     font-weight: 500;
     opacity: 0;
     transform: translateY(-10px);
     transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
 }
 
 .form-group.error .error-message {
@@ -327,54 +324,38 @@ label i {
     font-size: 0.85rem;
     color: #636e72;
     margin-top: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
 }
 
-/* =====================================
-   ICONO DE ÉXITO
-   ===================================== */
 .success-icon {
     position: absolute;
-    right: 1.2rem;
-    top: 3rem;
+    right: 1.3rem;
+    top: 3.1rem;
     color: #00b894;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     opacity: 0;
-    transform: scale(0);
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    display: none;
 }
 
 .form-group.valid .success-icon {
     opacity: 1;
-    transform: scale(1);
-    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    display: block;
+    animation: successBounce 0.6s ease;
 }
 
-@keyframes bounceIn {
-    0% {
-        transform: scale(0);
-    }
-    50% {
-        transform: scale(1.2);
-    }
-    100% {
-        transform: scale(1);
-    }
+@keyframes successBounce {
+    0% { transform: scale(0) rotate(0deg); }
+    50% { transform: scale(1.3) rotate(180deg); }
+    100% { transform: scale(1) rotate(360deg); }
 }
 
-/* =====================================
-   FUERZA DE CONTRASEÑA
-   ===================================== */
 .password-strength {
     margin-top: 1rem;
 }
 
 .strength-bar {
-    height: 6px;
+    height: 8px;
     background: #f0f0f0;
-    border-radius: 3px;
+    border-radius: 10px;
     overflow: hidden;
     margin-bottom: 0.5rem;
 }
@@ -382,8 +363,8 @@ label i {
 .strength-fill {
     height: 100%;
     width: 0%;
-    border-radius: 3px;
-    transition: all 0.5s ease;
+    border-radius: 10px;
+    transition: all 0.6s ease;
 }
 
 .strength-label {
@@ -398,15 +379,12 @@ label i {
     font-weight: 600;
 }
 
-/* =====================================
-   REQUISITOS DE CONTRASEÑA
-   ===================================== */
 .password-requirements {
     margin-top: 1.5rem;
-    padding: 1.2rem;
+    padding: 1.3rem;
     background: #f8f9fa;
-    border-radius: 12px;
-    border: 1px solid #dfe6e9;
+    border-radius: 15px;
+    border: 2px solid #dfe6e9;
 }
 
 .password-requirements h4 {
@@ -419,20 +397,20 @@ label i {
 }
 
 .requirement {
-    margin: 0.75rem 0;
+    margin: 0.8rem 0;
     color: #636e72;
     display: flex;
     align-items: center;
     gap: 0.75rem;
     font-size: 0.9rem;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
 }
 
 .req-icon {
-    width: 20px;
+    width: 22px;
     text-align: center;
     color: #b2bec3;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
 }
 
 .req-text {
@@ -445,27 +423,32 @@ label i {
 
 .requirement.met .req-icon {
     color: #00b894;
+    animation: checkPop 0.5s ease;
 }
 
-/* =====================================
-   CHECKBOX
-   ===================================== */
+@keyframes checkPop {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
 .checkbox-group {
     display: flex;
     align-items: flex-start;
     gap: 1rem;
-    padding: 1rem;
+    padding: 1.2rem;
     background: #f8f9fa;
-    border-radius: 12px;
+    border-radius: 15px;
     border: 2px solid #dfe6e9;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
+    cursor: pointer;
 }
 
 .checkbox-group:hover {
-    border-color: #6a11cb;
+    border-color: #667eea;
     background: white;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(106, 17, 203, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
 }
 
 .checkbox-group input[type="checkbox"] {
@@ -473,30 +456,32 @@ label i {
 }
 
 .custom-checkbox {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border: 2px solid #b2bec3;
-    border-radius: 6px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
     flex-shrink: 0;
     margin-top: 0.1rem;
+    background: white;
 }
 
 .custom-checkbox i {
     color: white;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     opacity: 0;
     transform: scale(0);
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
 }
 
 .checkbox-group input[type="checkbox"]:checked + .checkbox-label .custom-checkbox {
-    background: #6a11cb;
-    border-color: #6a11cb;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-color: #667eea;
+    transform: rotate(360deg);
 }
 
 .checkbox-group input[type="checkbox"]:checked + .checkbox-label .custom-checkbox i {
@@ -517,7 +502,7 @@ label i {
 }
 
 .terms-link {
-    color: #6a11cb;
+    color: #667eea;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
@@ -527,24 +512,21 @@ label i {
     text-decoration: underline;
 }
 
-/* =====================================
-   ACCIONES DEL FORMULARIO
-   ===================================== */
 .form-actions {
     display: flex;
     gap: 1rem;
-    margin: 2rem 0 1.5rem;
+    margin: 2.5rem 0 1.5rem;
 }
 
 .btn-primary, .btn-secondary {
     flex: 1;
-    padding: 1.2rem;
+    padding: 1.3rem;
     border: none;
-    border-radius: 12px;
+    border-radius: 15px;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -555,56 +537,46 @@ label i {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    box-shadow: 0 8px 25px rgba(106, 17, 203, 0.3);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
 }
 
 .btn-secondary {
-    background: #f8f9fa;
+    background: white;
     color: #636e72;
     border: 2px solid #dfe6e9;
 }
 
 .btn-primary:hover:not(:disabled) {
-    transform: translateY(-3px);
-    box-shadow: 
-        0 15px 35px rgba(106, 17, 203, 0.4),
-        0 0 0 2px rgba(255, 255, 255, 0.1) inset;
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
 }
 
 .btn-secondary:hover:not(:disabled) {
-    background: #e9ecef;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    background: #f8f9fa;
+    transform: translateY(-3px);
+    border-color: #667eea;
+    color: #667eea;
 }
 
 .btn-primary:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
-    transform: none !important;
-    box-shadow: none !important;
-}
-
-.btn-icon {
-    font-size: 1.2rem;
 }
 
 .btn-loader {
     display: none;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 .spinner {
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     border: 3px solid rgba(255, 255, 255, 0.3);
     border-top: 3px solid white;
     border-radius: 50%;
-    animation: spin 1s linear infinite;
+    animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
@@ -621,9 +593,6 @@ label i {
     display: block;
 }
 
-/* =====================================
-   PIE DEL FORMULARIO
-   ===================================== */
 .form-footer {
     text-align: center;
     padding-top: 1.5rem;
@@ -634,241 +603,199 @@ label i {
 
 .form-footer i {
     margin-right: 0.5rem;
-    color: #6a11cb;
+    color: #667eea;
 }
 
-/* =====================================
-   RESUMEN DEL FORMULARIO
-   ===================================== */
-.form-summary {
+/* MODAL */
+.modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
-    display: none;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 10000;
     padding: 2rem;
-    animation: fadeIn 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
 }
 
-.form-summary.show {
-    display: flex;
-}
-
-.summary-content {
+.modal-content {
     background: white;
-    padding: 2.5rem;
-    border-radius: 24px;
-    max-width: 500px;
+    padding: 3rem 2.5rem;
+    border-radius: 25px;
+    max-width: 550px;
     width: 100%;
     text-align: center;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    position: relative;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    transform: scale(0.8) translateY(50px);
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+.modal-overlay.show .modal-content {
+    transform: scale(1) translateY(0);
 }
 
-.summary-icon {
-    width: 80px;
-    height: 80px;
+.success-animation {
+    margin-bottom: 2rem;
+}
+
+.checkmark-circle {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
     background: linear-gradient(135deg, #00b894, #00a085);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 1.5rem;
-    box-shadow: 0 10px 30px rgba(0, 184, 148, 0.3);
+    animation: scaleIn 0.6s ease;
 }
 
-.summary-icon i {
-    font-size: 2.5rem;
-    color: white;
+@keyframes scaleIn {
+    0% { transform: scale(0) rotate(0deg); }
+    50% { transform: scale(1.2) rotate(180deg); }
+    100% { transform: scale(1) rotate(360deg); }
 }
 
-.summary-content h3 {
+.checkmark {
+    width: 50px;
+    height: 50px;
+}
+
+.checkmark-circle-svg {
+    stroke: white;
+    stroke-width: 3;
+    fill: none;
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    animation: strokeAnim 0.6s ease-out 0.3s forwards;
+}
+
+@keyframes strokeAnim {
+    to { stroke-dashoffset: 0; }
+}
+
+.checkmark-check {
+    stroke: white;
+    stroke-width: 3;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: strokeAnim 0.3s ease-out 0.6s forwards;
+}
+
+.modal-title {
+    font-size: 2rem;
     color: #2d3436;
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
 }
 
-.summary-details {
+.modal-subtitle {
+    color: #636e72;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+.modal-details {
     background: #f8f9fa;
+    border-radius: 15px;
     padding: 1.5rem;
-    border-radius: 12px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     text-align: left;
 }
 
-.summary-details p {
-    margin-bottom: 0.75rem;
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-item i {
+    color: #667eea;
+    font-size: 1.2rem;
+    width: 30px;
+    text-align: center;
+}
+
+.detail-item div {
+    flex: 1;
+}
+
+.detail-item strong {
+    display: block;
     color: #2d3436;
+    font-size: 0.85rem;
+    margin-bottom: 0.2rem;
 }
 
-.summary-details p:last-child {
-    margin-bottom: 0;
+.detail-item span {
+    color: #636e72;
+    font-size: 0.95rem;
 }
 
-.summary-details strong {
-    color: #6a11cb;
+.modal-message {
+    color: #636e72;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.modal-message i {
+    color: #00b894;
     margin-right: 0.5rem;
 }
 
-.summary-message {
-    color: #636e72;
-    margin-bottom: 1.5rem;
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-
-.btn-close-summary {
-    background: #6a11cb;
+.btn-close-modal {
+    background: linear-gradient(135deg, #667eea, #764ba2);
     color: white;
     border: none;
-    padding: 1rem 2rem;
+    padding: 1rem 2.5rem;
     border-radius: 12px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
     gap: 0.5rem;
-    margin: 0 auto;
+    font-family: 'Poppins', sans-serif;
 }
 
-.btn-close-summary:hover {
-    background: #2575fc;
+.btn-close-modal:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(106, 17, 203, 0.3);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
 }
 
-/* =====================================
-   RESPONSIVE
-   ===================================== */
+/* RESPONSIVE */
 @media (max-width: 768px) {
-    body {
-        padding: 1rem;
-    }
-    
-    .form-wrapper {
-        border-radius: 20px;
-    }
-    
-    .form-header, form {
-        padding: 2rem 1.5rem;
-    }
-    
-    h1 {
-        font-size: 1.8rem;
-    }
-    
-    .form-actions {
-        flex-direction: column;
-    }
-    
-    .summary-content {
-        padding: 2rem 1.5rem;
-    }
+    body { padding: 1rem; }
+    .form-wrapper { border-radius: 20px; }
+    .form-header, form { padding: 2rem 1.5rem; }
+    h1 { font-size: 1.8rem; }
+    .form-actions { flex-direction: column; }
+    .modal-content { padding: 2rem 1.5rem; }
 }
 
 @media (max-width: 480px) {
-    .form-header {
-        padding: 1.5rem 1rem;
-    }
-    
-    form {
-        padding: 0 1rem 1.5rem;
-    }
-    
-    h1 {
-        font-size: 1.6rem;
-    }
-    
-    .header-icon {
-        width: 60px;
-        height: 60px;
-    }
-    
-    .header-icon i {
-        font-size: 1.8rem;
-    }
-    
-    .input-wrapper input {
-        padding: 0.9rem 1rem 0.9rem 2.8rem;
-    }
-}
-
-/* =====================================
-   EFECTOS ADICIONALES
-   ===================================== */
-
-/* Efecto de brillo en inputs válidos */
-.form-group.valid::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -10px;
-    right: -10px;
-    bottom: 0;
-    background: linear-gradient(90deg, 
-        transparent,
-        rgba(0, 184, 148, 0.1),
-        transparent);
-    z-index: -1;
-    border-radius: 16px;
-    opacity: 0;
-    animation: glow 2s ease-in-out infinite;
-}
-
-@keyframes glow {
-    0%, 100% {
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-}
-
-/* Efecto de partículas */
-@keyframes particleFloat {
-    0% {
-        transform: translateY(100vh) translateX(0) rotate(0deg);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-100px) translateX(100px) rotate(720deg);
-        opacity: 0;
-    }
-}
-
-/* Transiciones suaves */
-* {
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    .form-header { padding: 1.5rem 1rem; }
+    form { padding: 0 1rem 1.5rem; }
+    h1 { font-size: 1.6rem; }
+    .header-icon { width: 60px; height: 60px; }
+    .header-icon i { font-size: 1.8rem; }
 }
