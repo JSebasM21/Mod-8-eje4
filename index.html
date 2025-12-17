@@ -135,7 +135,9 @@
                         </label>
                     </div>
                     <div class="input-wrapper">
-                        <input type="number" id="age" name="age" placeholder="Debes ser mayor de 18" min="1" max="120">
+                        <input type="text" id="age" name="age" placeholder="Debes ser mayor de 18" 
+                               pattern="\d+"
+                               title="Por favor ingresa solo números enteros">
                         <span class="input-icon">
                             <i class="fas fa-birthday-cake"></i>
                         </span>
@@ -197,27 +199,72 @@
                 <div class="form-footer">
                     <p><i class="fas fa-info-circle"></i> Los campos marcados con * son obligatorios</p>
                 </div>
+            </form>
+        </div>
+    </div>
 
-                <div class="form-summary" id="formSummary">
-                    <div class="summary-content">
-                        <div class="summary-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <h3>¡Registro Exitoso!</h3>
-                        <div class="summary-details">
-                            <p><strong>Usuario:</strong> <span id="summaryUsername"></span></p>
-                            <p><strong>Email:</strong> <span id="summaryEmail"></span></p>
-                            <p><strong>Edad:</strong> <span id="summaryAge"></span> años</p>
-                            <p><strong>Teléfono:</strong> <span id="summaryPhone"></span></p>
-                            <p><strong>Newsletter:</strong> <span id="summaryNewsletter"></span></p>
-                        </div>
-                        <p class="summary-message">Los datos se han validado correctamente. Te hemos enviado un correo de confirmación.</p>
-                        <button type="button" class="btn-close-summary" id="closeSummary">
-                            <i class="fas fa-times"></i> Cerrar
-                        </button>
+    <!-- MODAL DE ÉXITO -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="success-animation">
+                <div class="checkmark-circle">
+                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle class="checkmark-circle-svg" cx="26" cy="26" r="25" fill="none"/>
+                        <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <h2 class="modal-title">¡Registro Exitoso!</h2>
+            <p class="modal-subtitle">Tu cuenta ha sido creada correctamente</p>
+            
+            <div class="modal-details">
+                <div class="detail-item">
+                    <i class="fas fa-user"></i>
+                    <div>
+                        <strong>Usuario:</strong>
+                        <span id="summaryUsername"></span>
                     </div>
                 </div>
-            </form>
+                <div class="detail-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <strong>Email:</strong>
+                        <span id="summaryEmail"></span>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-birthday-cake"></i>
+                    <div>
+                        <strong>Edad:</strong>
+                        <span id="summaryAge"></span> años
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <strong>Teléfono:</strong>
+                        <span id="summaryPhone"></span>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-bell"></i>
+                    <div>
+                        <strong>Newsletter:</strong>
+                        <span id="summaryNewsletter"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="modal-message">
+                <i class="fas fa-envelope-circle-check"></i>
+                Te hemos enviado un correo de confirmación. Por favor revisa tu bandeja de entrada.
+            </p>
+            
+            <button type="button" class="btn-close-modal" id="closeModal">
+                <span>Cerrar</span>
+                <i class="fas fa-times"></i>
+            </button>
         </div>
     </div>
 
